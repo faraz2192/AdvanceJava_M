@@ -15,7 +15,7 @@ public abstract class AddEmpDetails {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		try(SessionFactory sf=getFactory() Scanner sc=new Scanner (System.in))
+		try(SessionFactory sf=getFactory(); Scanner sc=new Scanner (System.in))
 		{
 			//Create emp dao instance
 			EmployeeDaoImpl empDao= new EmployeeDaoImpl();
@@ -23,7 +23,7 @@ public abstract class AddEmpDetails {
 			System.out.println("firstName, lastName, dept, salary,"
 					+ "dob isPermanent");
 			//create transient emp
-			Employee emp= new Employee(sc.next(), sc.next(), null, 0, null, false)
+			Employee emp= new Employee(sc.next(), sc.next(), null, 0, null, false);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
