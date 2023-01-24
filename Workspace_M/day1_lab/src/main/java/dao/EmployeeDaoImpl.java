@@ -1,7 +1,14 @@
 package dao;
+import pojos.Department;
 import pojos.Employee;
-import org.hibernate.*;
+
 import static utils.HibernateUtils.getFactory;
+
+import java.util.List;
+
+
+
+import org.hibernate.*;
 
 public class EmployeeDaoImpl implements EmployeeDao{
 
@@ -44,5 +51,36 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		}
 		return null;
 	}
+
+	@Override
+	public List<Employee> getEmpsByDeptAndSalary(Department dept, double minSal) {
+		
+		List<Employee> emps= null;
+		
+		//here dept is pojo property name !!
+		//department and sal are our names(IN PARAMETER NAME)
+		String jpql="select e from Employee e where e.dept=:department and e.salary>:sal";
+		
+		//Get current Session
+		Session session= getFactory().getCurrentSession();
+		
+		//
+		Transaction tx= session.beginTransaction();
+		try {
+			emps= session.createQuery(jpql,Employee.class).
+					setParameter("department", dept).
+					setParameter("sal", minSal).
+					getResultList();
+			
+			tx.commit();
+		}catch (RuntimeException e) {
+			if (tx!=null)
+				tx.rollback();
+			throw e;
+		}
+		return emps;
+	}
+	
+	
 
 }
