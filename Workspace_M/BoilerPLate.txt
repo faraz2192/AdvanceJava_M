@@ -1,9 +1,9 @@
-//Get current Session
-		Session session= getFactory().getCurrentSession();
-		
-		//
-		Transaction tx= session.beginTransaction();
-		try {
+//Get current 
+SessionSession session= getFactory().getCurrentSession();
+
+//Begin a Transaction
+Transaction tx= session.beginTransaction();
+	try {
 			
 			
 			tx.commit();
