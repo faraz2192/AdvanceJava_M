@@ -8,4 +8,6 @@ public interface CategoryDao {
 	
 //2. Delete category
 	String deleteCategoryName(Category categoryName);
+	
+
 }

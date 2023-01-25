@@ -42,10 +42,14 @@ public class CategoryDaoImpl implements CategoryDao {
 		Session session = getFactory().getCurrentSession();
 		Transaction tx= session.beginTransaction();
 		try {
-			int updateCount = session.createNamedQuery(jpql).
-					setParameter("nm", categoryName).executeUpdate();
+			Category category= session.createQuery(jpql,Category.class).
+					setParameter("nm", categoryName).getSingleResult();
+			
+			session.delete(category);
 			tx.commit();
-			message="Deletion of Category successfull"+updateCount;
+//			Cascades delete operation to child table
+			
+			message="Deletion of Category successfull";
 		} catch (RuntimeException e) {
 			if (tx != null)
 				tx.rollback();
@@ -54,5 +58,8 @@ public class CategoryDaoImpl implements CategoryDao {
 		return message;
 		
 	}
+	
+
+	
 
 }
